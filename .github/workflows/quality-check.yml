@@ -1,0 +1,131 @@
+name: Quality Assurance
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  docker-cache:
+    name: Docker Cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Actions
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - id: cache-docker
+        uses: actions/cache@v3
+        with:
+          path: /tmp/cache-docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/docker-compose*') }}
+          restore-keys: ${{ runner.os }}-docker-
+      - name: Save Images
+        if: steps.cache-docker.outputs.cache-hit != 'true'
+        run: echo ${{ steps.cache-docker.outputs.cache-hit }}
+              && chmod +x ./scripts/cache-docker/save-environment.sh
+              && ./scripts/cache-docker/save-environment.sh && ls /tmp/cache-docker
+
+  ###################################### CODECOV ###########################################
+  codecov:
+    name: Test Coverage
+    needs: docker-cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Actions
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: adopt
+
+      - name: Recover Docker Cache
+        id: cache-docker
+        uses: actions/cache@v3
+        with:
+          path: /tmp/cache-docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/docker-compose*') }}
+          restore-keys: ${{ runner.os }}-docker-
+
+      - name: Load Docker Images
+        if: steps.cache-docker.outputs.cache-hit == 'true'
+        run: chmod +x ./scripts/cache-docker/load-environment.sh
+              && ./scripts/cache-docker/load-environment.sh
+
+      - name: Run coverage
+        run: chmod +x ./scripts/test-mode.sh
+              && ./scripts/test-mode.sh
+
+      - name: Upload coverage to Codecov
+        run: bash <(curl -s https://codecov.io/bash)
+
+  ################################# SONAR CLOUD #############################################
+  sonarcloud:
+    if: "contains(github.event.head_commit.message, 'run sonar')"
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    needs: docker-cache
+    steps:
+      - name: Setup Actions
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: adopt
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Recover Docker Cache
+        id: cache-docker
+        uses: actions/cache@v3
+        with:
+          path: /tmp/cache-docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/docker-compose*') }}
+          restore-keys: ${{ runner.os }}-docker-
+
+      - name: Load Image
+        if: steps.cache-docker.outputs.cache-hit == 'true'
+        run: chmod +x ./scripts/cache-docker/load-environment.sh
+          && ./scripts/cache-docker/load-environment.sh
+
+      - name: Analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: chmod 755 gradlew
+              && chmod +x ./scripts/test-mode.sh
+              && ./scripts/test-mode.sh sonarqube --stacktrace
+
+  ############################# SNYK ###############################
+  snyk:
+    if: "contains(github.event.head_commit.message, 'run snyk')"
+    name: Security Check
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/gradle-jdk16@master
+        env:
+          SNYK_TOKEN: ${{secrets.SNYK_AUTH}}

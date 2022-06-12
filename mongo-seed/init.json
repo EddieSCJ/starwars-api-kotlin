@@ -1,0 +1,15 @@
+[
+  {
+    "_id": {
+      "$oid": "6281f179344601ef2e98dcd3"
+    },
+    "username": "another_application_who_consumes_this_api",
+    "password": "$2a$10$W1NqIc3gvpLNwQska2iAFOQ1FOpUDQ1a5FF.ffAF2eUNuaLrr3FKm",
+    "authorities": [
+      "PLANET_LIST",
+      "PLANET_CREATE",
+      "PLANET_UPDATE",
+      "PLANET_DELETE"
+    ]
+  }
+]

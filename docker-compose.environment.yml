@@ -1,0 +1,76 @@
+version: "3.8"
+
+services:
+  ############# AWS ################
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
+    image: localstack/localstack
+    ports:
+      - "127.0.0.1:4510-4559:4510-4559" # external service port range
+      - "127.0.0.1:4566:4566" # LocalStack Edge Proxy
+    environment:
+      - DEBUG=0
+      - DATA_DIR=/data/localstack
+      - HOST_TMP_FOLDER=/tmp/localstack
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - SERVICES=sqs,sns
+      - AWS_ACCESS_KEY_ID=dummy
+      - AWS_SECRET_ACCESS_KEY=dummy
+      - HOSTNAME_EXTERNAL=localstack
+    volumes:
+      - "${TMPDIR:-/tmp}/localstack:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - ./localstack:/docker-entrypoint-initaws.d:ro
+
+  ############# MONGO ################
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongo-data:/tmp/mongodb
+  mongo-seed:
+    build: ./mongo-seed
+    depends_on:
+      - mongodb
+
+  ############# APACHE KAFKA ################
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    hostname: zookeeper
+    ports:
+      - '2181:2181'
+    environment:
+      - ZOO_CLIENT_USER=zookeeper
+      - ZOO_CLIENT_PASSWORD=zookeeper_pwd
+      - ZOO_ENABLE_AUTH=yes
+  kafka:
+    image: 'bitnami/kafka:latest'
+    hostname: kafka
+    ports:
+      - '9092:9092'
+      - '9093:9093'
+    environment:
+      - KAFKA_BROKER_ID=1
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENERS=INTERNAL://0.0.0.0:9092, EXTERNAL_SAME_HOST://0.0.0.0:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=INTERNAL://kafka:9092, EXTERNAL_SAME_HOST://localhost:9093
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL_SAME_HOST:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ZOOKEEPER_USER=zookeeper
+      - KAFKA_ZOOKEEPER_PASSWORD=zookeeper_pwd
+    depends_on:
+      - zookeeper
+  init-kafka:
+    depends_on:
+      - zookeeper
+      - kafka
+    build: ./init-kafka
+
+volumes:
+  mongo-data:
+    driver: local

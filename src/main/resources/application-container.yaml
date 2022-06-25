@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: admin
+      database: starwars
+      password: password
+      authSource: admin

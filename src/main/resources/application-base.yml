@@ -1,0 +1,65 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v0/
+  error:
+    path: /resource-error
+
+clients:
+  starwars:
+    name: starwars
+    url: https://swapi.dev/api/
+
+feign:
+  client:
+    config:
+      starwars:
+        connectTimeout: 1000
+        readTimeout: 10000
+
+security:
+  authorization:
+    secret: ${AUTHORIZATION_SECRET}
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextInstanceDataAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration
+  data:
+    mongodb:
+      host: ${MONGO_HOST}
+      port: ${MONGO_PORT}
+      username: ${MONGO_USER}
+      database: ${MONGO_DB}
+      password: ${MONGO_PASSWORD}
+      authSource: ${MONGO_AUTH_SOURCE}
+
+cloud:
+  aws:
+    region:
+      static: ${AWS_REGION}
+      auto: false
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    sns:
+      endpoint: ${SNS_ENDPOINT}
+    sqs:
+      planet-delete-uri: ${SQS_PLANET_DELETE_URL}
+      endpoint: ${SQS_ENDPOINT}
+
+kafka:
+  bootstrap:
+    address: ${KAFKA_BOOTSTRAP_ADDRESS}
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+        internal:
+          InstanceMetadataServiceResourceFetcher: error

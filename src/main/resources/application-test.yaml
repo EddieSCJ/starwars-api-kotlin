@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: admin
+      database: starwars
+      password: password
+      authSource: admin
+
+kafka:
+  bootstrap:
+    address: 'http://localhost:9092'

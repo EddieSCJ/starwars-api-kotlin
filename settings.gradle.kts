@@ -1,2 +1,2 @@
-rootProject.name = "starwars-api-kotlin"
+rootProject.name = "starwars"
 

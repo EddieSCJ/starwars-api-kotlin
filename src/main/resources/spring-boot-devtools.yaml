@@ -1,0 +1,7 @@
+spring:
+  devtools:
+    restart:
+      pollInterval: 2s
+      quiet-period: 1s
+    livereload:
+      enabled: true

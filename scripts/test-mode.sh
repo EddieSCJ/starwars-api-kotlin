@@ -24,4 +24,4 @@ export MONGO_AUTH_SOURCE=admin
 export KAFKA_BOOTSTRAP_ADDRESS=http://localhost:9093
 
 chmod +x gradlew
-./gradlew test codeCoverageReport $1 $2
+./gradlew test jacocoTestReport $1 $2

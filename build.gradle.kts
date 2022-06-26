@@ -27,7 +27,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
     /** Spring **/
-    developmentOnly("org.springframework.boot:spring-boot-devtools:2.6.8")
+    developmentOnly("org.springframework.boot:spring-boot-devtools:2.7.0")
     implementation("org.springframework.boot:spring-boot-starter-webflux:2.7.0")
     implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.0")
 

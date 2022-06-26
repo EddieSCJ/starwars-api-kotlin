@@ -10,7 +10,6 @@ export MONGO_PASSWORD=password
 export MONGO_PORT=27017
 export MONGO_DB=starwars
 export MONGO_CONTAINER_NAME=mongoservice
-export AUTHORIZATION_SECRET='TazvE@QSs7AfWTMfEwXaR#TB7P6&p@JQ5RqCMqZ%cL5MU$2qPZyEDkTZH^#cuUW3nbRrTJy^+Hj5wWdNVg?-QypDRMyfE5pCwR#F%bh%73q#F^m*B?@PS'
 export AWS_SECRET_KEY=SECRET
 export AWS_ACCESS_KEY=ACCESS
 export AWS_REGION=us-east-1

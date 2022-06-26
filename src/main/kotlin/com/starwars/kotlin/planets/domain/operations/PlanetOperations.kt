@@ -5,10 +5,10 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 interface PlanetOperations {
-    fun findAll(page: Int?, size: Int?): Flux<Planet>
+    fun findAll(page: Int, size: Int): Flux<Planet>
     fun findById(id: String, cacheInDays: Long): Mono<Planet>
     fun findByName(name: String, cacheInDays: Long): Mono<Planet>
-    fun updateById(id: String, planet: Planet): Mono<Planet>
+    fun updateById(id: String?, planet: Planet): Mono<Planet>
     fun save(planet: Planet): Mono<Planet>
     fun deleteById(id: String): Mono<Planet>
 }

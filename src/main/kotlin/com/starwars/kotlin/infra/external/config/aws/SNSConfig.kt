@@ -33,7 +33,7 @@ class SNSConfig {
     @Bean
     @Primary
     fun amazonSNSAsync(): AmazonSNSAsync {
-        return if (snsEndPoint == "defaultEndPoint") {
+        return if (snsEndPoint === "defaultEndPoint") {
             AmazonSNSAsyncClientBuilder.standard().withRegion(region)
                 .withCredentials(AWSStaticCredentialsProvider(BasicAWSCredentials(sqsAccessKey, sqsSecretKey)))
                 .build()

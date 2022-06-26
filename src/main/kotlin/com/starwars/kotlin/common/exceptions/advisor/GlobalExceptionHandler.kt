@@ -23,7 +23,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
-class GlobalExceptionHandler @Autowired constructor(private val messageSourceHelper: MessageSourceHelper) {
+class GlobalExceptionHandler constructor(private val messageSourceHelper: MessageSourceHelper) {
 
     @ExceptionHandler(Exception::class)
     @ApiResponse(

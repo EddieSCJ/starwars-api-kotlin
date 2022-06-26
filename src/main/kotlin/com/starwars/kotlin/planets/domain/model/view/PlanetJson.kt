@@ -3,7 +3,7 @@ package com.starwars.kotlin.planets.domain.model.view
 import com.starwars.kotlin.planets.domain.model.Planet
 //import org.springframework.hateoas.RepresentationModel
 
-data class PlanetView(
+data class PlanetJson(
         val id: String,
         val name: String,
         val climate: List<String>,
@@ -25,8 +25,8 @@ data class PlanetView(
     }
 
     companion object {
-        fun fromDomain(planet: Planet): PlanetView {
-            return PlanetView(
+        fun fromDomain(planet: Planet): PlanetJson {
+            return PlanetJson(
                 planet.id!!,
                 planet.name,
                 planet.climate,

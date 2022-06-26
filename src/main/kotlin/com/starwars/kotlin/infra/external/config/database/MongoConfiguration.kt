@@ -7,11 +7,14 @@ import com.mongodb.reactivestreams.client.MongoClients
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.mongodb.SpringDataMongoDB
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate
 import java.text.MessageFormat
+
 
 @Configuration
 data class MongoConfiguration(
@@ -37,6 +40,12 @@ data class MongoConfiguration(
     private val profile: String,
 ) {
     val log: Logger = LoggerFactory.getLogger(this::class.java)
+
+
+    @Bean
+    fun reactiveMongoTemplate(): ReactiveMongoTemplate? {
+        return ReactiveMongoTemplate(client(), databaseName)
+    }
 
     @Bean
     fun client(): MongoClient {

@@ -32,7 +32,7 @@ class SQSConfig {
     @Bean
     @Primary
     fun amazonSQSAsync(): AmazonSQSAsync {
-        return if (sqsEndPoint == "defaultEndPoint") {
+        return if (sqsEndPoint === "defaultEndPoint") {
             AmazonSQSAsyncClientBuilder.standard().withRegion(region)
                 .withCredentials(AWSStaticCredentialsProvider(BasicAWSCredentials(sqsAccessKey, sqsSecretKey)))
                 .build()

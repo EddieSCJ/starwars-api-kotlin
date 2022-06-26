@@ -7,10 +7,10 @@ import java.lang.reflect.Field
 import java.text.MessageFormat
 
 @Component
-abstract class AbstractValidator @Autowired constructor(val messageSourceHelper: MessageSourceHelper) {
+abstract class AbstractValidator constructor(private val messageSourceHelper: MessageSourceHelper) {
     protected lateinit var validationMessages: MutableList<String>
 
-    fun validate(generic: Any): List<String> {
+    fun validate(generic: Any): MutableList<String> {
         val declaredFields = generic.javaClass.declaredFields
         validationMessages = mutableListOf()
 
@@ -36,21 +36,21 @@ abstract class AbstractValidator @Autowired constructor(val messageSourceHelper:
     }
 
     private fun isBlank(field: Field, value: Any?) {
-        if (field.type == String::class.java && value != null && value == "") {
+        if (field.type === String::class.java && value !== null && value === "") {
             val errorMessage: String = messageSourceHelper.getFieldErrorMessage("blank")
             addFieldErrorMessage(field.name, errorMessage)
         }
     }
 
     protected fun isNull(field: Field, value: Any?) {
-        if (value == null) {
+        if (value === null) {
             val errorMessage: String = messageSourceHelper.getFieldErrorMessage("null")
             addFieldErrorMessage(field.name, errorMessage)
         }
     }
 
     private fun isEmptyList(field: Field, value: Any) {
-        if (field.type == MutableList::class.java) {
+        if (field.type === MutableList::class.java) {
             val list = value as List<*>
             if (list.isEmpty()) {
                 val errorMessage: String = messageSourceHelper.getFieldErrorMessage("empty")

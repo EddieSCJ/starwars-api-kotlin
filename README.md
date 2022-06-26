@@ -1,5 +1,7 @@
-
 # <p align="center"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-plain-wordmark.svg" width=100 /> <br> :space_invader: Star Wars API :space_invader:</p>
+
+#### <p align="center">  This project is cloned from [Github Star Wars API Java](https://github.com/EddieSCJ/starwars-api-java) </p>
+<p align="center"> I am keep fowarding with the previous pet project, but now using kotlin as a best language which also use the JWV platform. </p>
 
 #### <p align="center"> Project Tooling </p>
 
@@ -51,22 +53,10 @@ One exception is snyk, which sometimes have some problems that can't be solved n
 
 #### <p align="center"> Making Requests </p>
 
-Being authenticated:
-
-```bash
-curl -o token.json --location --request POST 'http://localhost:8080/api/v0/login' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "username":"another_application_who_consumes_this_api",
-    "password": "12"
-}'
-```
-
 Using Authorization to get planets
 
 ```bash
 curl -o result.json --location --request GET 'http://localhost:8080/api/v0/planets' \
---header 'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbm90aGVyX2FwcGxpY2F0aW9uX3dob19jb25zdW1lc190aGlzX2FwaSJ9.jnSWQTkg6dQ18tAPl8RS2JrdEdmtxBvx40Tq7WqYFighnziLKzUi2BLJ4S__dOlQDuJl0Lw3NYFS5IbGgd-XnQ' \
 --header 'Content-Type: application/json' | json_pp
 ```
 
@@ -98,7 +88,6 @@ MONGO_PASSWORD=password;
 MONGO_PORT=27017;
 MONGO_DB=starwars;
 MONGO_CONTAINER_NAME=mongoservice;
-AUTHORIZATION_SECRET=TazvE@QSs7AfWTMfEwXaR#TB7P6&p@JQ5RqCMqZ%cL5MU$2qPZyEDkTZH^#cuUW3nbRrTJy^+Hj5wWdNVg?-QypDRMyfE5pCwR#F%bh%73q#F^m*B?@PS;
 AWS_SECRET_KEY=SECRET;
 AWS_ACCESS_KEY=ACCESS;
 AWS_REGION=us-east-1;
@@ -144,7 +133,6 @@ MONGO_PASSWORD=password
 MONGO_PORT=27017
 MONGO_DB=starwars
 MONGO_CONTAINER_NAME=mongoservice
-AUTHORIZATION_SECRET=TazvE@QSs7AfWTMfEwXaR#TB7P6&p@JQ5RqCMqZ%cL5MU$2qPZyEDkTZH^#cuUW3nbRrTJy^+Hj5wWdNVg?-QypDRMyfE5pCwR#F%bh%73q#F^m*B?@PS
 AWS_SECRET_KEY=SECRET
 AWS_ACCESS_KEY=ACCESS
 AWS_REGION=us-east-1

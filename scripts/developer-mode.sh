@@ -24,6 +24,7 @@ export PROFILE=dev
 export MONGO_AUTH_SOURCE=admin
 export KAFKA_BOOTSTRAP_ADDRESS=localhost:9093
 
+chmod +x gradlew
 ./gradlew build -x test --info
 java -jar ./build/libs/starwars.jar
 

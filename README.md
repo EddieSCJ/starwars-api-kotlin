@@ -1,7 +1,7 @@
 # <p align="center"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-plain-wordmark.svg" width=100 /> <br> :space_invader: Star Wars API :space_invader:</p>
 
 #### <p align="center">  This project is cloned from [Github Star Wars API Java](https://github.com/EddieSCJ/starwars-api-java) </p>
-<p align="center"> I am keep fowarding with the previous pet project, but now using kotlin as a best language which also use the JWV platform. </p>
+<p align="center"> I am keep fowarding with the previous pet project, but now using kotlin as a better language which also use the JVM platform. </p>
 
 #### <p align="center"> Project Tooling </p>
 

@@ -63,13 +63,35 @@ dependencies {
 
 }
 
+// ================================ Tests ================================
+// Configuration to jacoco produce xml
+
+tasks {
+    "test"(Test::class) {
+        useJUnitPlatform()
+    }
+
+    val codeCoverageReport by creating(JacocoReport::class) {
+        executionData(fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec"))
+
+        subprojects.onEach {
+            sourceSets(it.sourceSets["main"])
+        }
+
+        reports {
+            xml.isEnabled = true
+            xml.destination = File("$buildDir/reports/jacoco/report.xml")
+            html.isEnabled = false
+            csv.isEnabled = false
+        }
+
+        dependsOn("test")
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "17"
     }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }

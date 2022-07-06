@@ -17,8 +17,7 @@ import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import reactor.util.function.Tuple2
-import java.text.MessageFormat
+import reactor.kotlin.core.publisher.switchIfEmpty
 import java.text.MessageFormat.format
 
 @Service
@@ -33,38 +32,49 @@ class PlanetService constructor(
     override fun findAll(page: Int, size: Int): Flux<Planet> {
         val sort = Sort.by(Sort.Direction.ASC, "id")
         return planetRepository.count().flatMapMany { counter ->
-                if (counter == 0L) findFromStarWarsClient()
-                else planetMongoRepository
-                    .findAllByIdNotNull(PageRequest.of(page, size).withSort(sort))
-                    .map{mongoPlanet -> mongoPlanet.toDomain()}
-            }
+            if (counter == 0L) findFromStarWarsClient(size.toLong())
+            else planetMongoRepository
+                .findAllByIdNotNull(PageRequest.of(page, size).withSort(sort))
+                .map { mongoPlanet -> mongoPlanet.toDomain() }
+        }
             .switchIfEmpty(Flux.error(NotFoundError("Nenhum planeta encontrado.")))
     }
 
     override fun findById(id: String, cacheInDays: Long): Mono<Planet> {
         return planetRepository.findById(id)
-            .flatMap { planet ->
-                if (planet.cacheInDays > cacheInDays)
-                    planetRepository.save(findFromStarWarsClientBy(planet.name, planet.id))
-                else Mono.just(planet)
+            .zipWhen {
+                if (it.cacheInDays > cacheInDays) {
+                    findFromStarWarsClientBy(it.name, it.id)
+                        .switchIfEmpty(Mono.error(NotFoundError(format("Planeta não encontrado com o id: {0}", id))))
+                        .doOnSuccess { planet -> planetRepository.save(Mono.just(planet)) }
+                } else Mono.just(it)
             }
+            .map { it.t2 }
             .switchIfEmpty(Mono.error(NotFoundError(format("Planeta não encontrado com o id: {0}", id))))
     }
 
     override fun findByName(name: String, cacheInDays: Long): Mono<Planet> {
         return planetRepository.findByName(name)
-            .flatMap { planet ->
-                if (planet.cacheInDays > cacheInDays)
-                    planetRepository.save(findFromStarWarsClientBy(planet.name, planet.id))
-                else Mono.just(planet)
+            .zipWhen {
+                if (it.cacheInDays > cacheInDays)
+                    return@zipWhen findFromStarWarsClientBy(it.name, it.id)
+                        .flatMap { planet ->
+                            planetRepository.save(Mono.just(planet))
+                        }
+                else return@zipWhen Mono.just(it)
             }
-            .switchIfEmpty(planetRepository.save(findFromStarWarsClientBy(name, null)))
+            .map { it.t2 }
+            .switchIfEmpty {
+                findFromStarWarsClientBy(name, null)
+                    .switchIfEmpty(Mono.error(NotFoundError(format("Planeta não encontrado com o nome: {0}", name))))
+                    .doOnSuccess { planetRepository.save(Mono.just(it)) }
+            }
     }
 
     override fun updateById(id: String?, planet: Planet): Mono<Planet> {
         val errorMessages: MutableList<String> = planetValidator.validate(planet)
 
-        if (id === null) {
+        if (id == null || id == "null") {
             log.warn("Erro ao atualizar planeta. id {}. name: {}.", planet.id, planet.name)
             errorMessages.add("Campo id nao pode ser nulo.")
             throw BadRequestError(errorMessages)
@@ -72,7 +82,7 @@ class PlanetService constructor(
 
         if (errorMessages.isNotEmpty()) {
             log.warn("Erro ao atualizar planeta. id {}. name: {}.", planet.id, planet.name)
-            throw BadRequestError(errorMessages)
+            return Mono.error(BadRequestError(errorMessages))
         }
 
         return planetRepository.findById(id)
@@ -81,7 +91,7 @@ class PlanetService constructor(
                 val newPlanet = Planet(id, planet.name, planet.climate, planet.terrain, planet.movieAppearances, 0L)
                 planetRepository.save(Mono.just(newPlanet))
             }
-            .map { tuple -> tuple.t1 }
+            .map { tuple -> tuple.t2 }
     }
 
     @Throws(BadRequestError::class)
@@ -90,21 +100,18 @@ class PlanetService constructor(
 
         if (errorMessages.isNotEmpty()) {
             log.warn("Erro ao salvar planeta. name: {}. errors: {}", planet.name, errorMessages)
-            throw BadRequestError(errorMessages)
+            return Mono.error(BadRequestError(errorMessages))
         }
 
         if (planet.id != null) {
             log.warn("Erro ao salvar planeta, pois contém o ID. name: {}. id: {}", planet.name, planet.id)
             errorMessages.add("Campo id nao pode ser preenchido.")
-            throw BadRequestError(errorMessages)
+            return Mono.error(BadRequestError(errorMessages))
         }
 
         return planetRepository.findByName(planet.name)
-            .doOnNext { foundPlanet ->
-                if (foundPlanet != null) {
-                    log.warn("Erro ao salvar planeta. name: {}.", planet.name)
-                    throw ConflictError(format("Planeta com o nome: {0} ja existe.", planet.name))
-                }
+            .flatMap<Planet> {
+                return@flatMap Mono.error(ConflictError(format("Planeta com o nome: {0} ja existe.", planet.name)))
             }
             .switchIfEmpty(planetRepository.save(Mono.just(planet)))
     }
@@ -113,16 +120,19 @@ class PlanetService constructor(
         return planetRepository.deleteById(id)
     }
 
-    fun findFromStarWarsClient(): Flux<Planet> {
+    fun findFromStarWarsClient(size: Long): Flux<Planet> {
         return starWarsApiClient.planets
-            .doOnSuccess { planetResponseJson ->
+            .zipWhen { planetResponseJson ->
                 if (planetResponseJson.results.isEmpty()) {
                     log.info("Busca de planetas na api do star wars não retornou nenhum resultado.")
-                    throw NotFoundError("Nenhum planeta encontrado.")
+                     return@zipWhen Mono.error(NotFoundError("Nenhum planeta encontrado."))
                 }
+                return@zipWhen Mono.just(planetResponseJson)
             }
+            .map { it.t2 }
             .map { planetResponseJson ->
                 planetResponseJson.results.parallelStream()
+                    .limit(size)
                     .map { planetJson -> planetJson.toDomain(null) }
                     .map(MongoPlanet::fromDomain).toList()
             }
@@ -133,12 +143,14 @@ class PlanetService constructor(
 
     private fun findFromStarWarsClientBy(name: String, id: String?): Mono<Planet> {
         return starWarsApiClient.getPlanetBy(name)
-            .doOnSuccess { planetResponseJson ->
+            .zipWhen { planetResponseJson ->
                 if (planetResponseJson.results.isEmpty()) {
                     log.info("Busca de planetas na api do star wars nao retornou nenhum resultado. id: {}. name: {}.", id, name)
-                    throw NotFoundError(format("Nenhum planeta com nome {0} foi encontrado.", name))
+                    return@zipWhen Mono.empty()
                 }
+                return@zipWhen Mono.just(planetResponseJson.results[0].toDomain(id))
             }
-            .map { planetResponseJson -> planetResponseJson.results[0].toDomain(id) }
+            .map { it.t2 }
+            .switchIfEmpty(Mono.empty())
     }
 }

@@ -14,7 +14,7 @@ data class MongoPlanet(
     @Id
     @Field("_id")
     @Indexed(unique = true)
-    val id: ObjectId? = null,
+    var id: ObjectId? = null,
 
     @Indexed(unique = true)
     val name: String,

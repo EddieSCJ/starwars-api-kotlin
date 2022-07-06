@@ -7,6 +7,8 @@ spring:
       database: starwars
       password: password
       authSource: admin
+  webflux:
+    base-path: /
 
 kafka:
   bootstrap:

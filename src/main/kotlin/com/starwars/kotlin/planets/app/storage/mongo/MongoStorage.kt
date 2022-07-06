@@ -14,7 +14,6 @@ import com.starwars.kotlin.planets.domain.model.view.EventView
 import com.starwars.kotlin.planets.domain.storage.PlanetStorage
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.util.StringUtils
 import reactor.core.publisher.Mono
-import java.text.MessageFormat
 import java.text.MessageFormat.format
 
 @Repository
@@ -49,7 +47,9 @@ class MongoStorage constructor(
         return mongoTemplate
             .findById(id, MongoPlanet::class.java)
             .doOnSuccess { log.info("Planeta encontrado no banco. id: {}.", id) }
-            .flatMap { mongoPlanet -> Mono.just(mongoPlanet.toDomain()) }
+            .flatMap { mongoPlanet ->
+                Mono.just(mongoPlanet.toDomain())
+            }
             .doOnSuccess { log.info("Busca de planeta no banco pelo id concluida com sucesso. id: {}.", id) }
     }
 

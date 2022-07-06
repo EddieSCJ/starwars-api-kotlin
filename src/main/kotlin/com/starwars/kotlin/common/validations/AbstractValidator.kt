@@ -42,14 +42,15 @@ abstract class AbstractValidator constructor(private val messageSourceHelper: Me
         }
     }
 
-    protected fun isNull(field: Field, value: Any?) {
+    protected fun isNull(field: Field, value: Any? = null) {
         if (value === null) {
             val errorMessage: String = messageSourceHelper.getFieldErrorMessage("null")
             addFieldErrorMessage(field.name, errorMessage)
         }
     }
 
-    private fun isEmptyList(field: Field, value: Any) {
+    private fun isEmptyList(field: Field, value: Any? = null) {
+        if(value==null) return
         if (field.type === MutableList::class.java) {
             val list = value as List<*>
             if (list.isEmpty()) {
@@ -59,7 +60,8 @@ abstract class AbstractValidator constructor(private val messageSourceHelper: Me
         }
     }
 
-    private fun isEmptyArray(field: Field, value: Any?) {
+    private fun isEmptyArray(field: Field, value: Any? = null) {
+        if(value==null) return
         if (field.type.isArray) {
             val array = value as Array<*>
             if (array.isEmpty()) {

@@ -3,7 +3,7 @@ package com.starwars.kotlin.planets.domain.model.client
 import com.starwars.kotlin.planets.domain.model.Planet
 
 
-data class PlanetJson(
+data class ClientPlanetJson(
     val name: String,
     val climate: String,
     val terrain: String,

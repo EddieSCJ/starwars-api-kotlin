@@ -1,7 +1,5 @@
 server:
   port: 8080
-  servlet:
-    context-path: /api/v0/
   error:
     path: /resource-error
 
@@ -36,6 +34,8 @@ spring:
       database: ${MONGO_DB}
       password: ${MONGO_PASSWORD}
       authSource: ${MONGO_AUTH_SOURCE}
+  webflux:
+    base-path: /api/v0/
 
 cloud:
   aws:

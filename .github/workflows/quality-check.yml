@@ -117,7 +117,7 @@ jobs:
               && chmod +x ./scripts/test-mode.sh
               && ./scripts/test-mode.sh sonarqube --stacktrace
 
-  ############################# SNYK ###############################
+  ############################# SNYK ################################
   snyk:
     if: "contains(github.event.head_commit.message, 'run snyk')"
     name: Security Check

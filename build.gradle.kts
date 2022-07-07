@@ -59,10 +59,10 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-ui:1.6.9")
 
     /** Testing **/
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testImplementation("com.appmattus.fixture:fixture:1.2.0")
     testImplementation("io.projectreactor:reactor-test:3.4.18")
     testImplementation ("org.junit.jupiter:junit-jupiter:5.8.2")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testImplementation ("org.springframework.boot:spring-boot-starter-test:2.7.0")
 }
 

@@ -77,9 +77,23 @@ object DomainUtils {
                 weathers,
                 terrain,
                 movieAppearances = 0,
-                cacheInDays = 0L
+                cacheInDays = 0
             )
         }
 
-    val invalidPlanetJson: PlanetJson get() = PlanetJson(id = null, name = "", emptyList(), emptyList(), movieAppearances = 0, cacheInDays = 0L)
+    val randomPlanetJsonWithoutId: PlanetJson
+        get() {
+            val weathers = listOf("tempo ruim", "tempo bom")
+            val terrain = listOf("arido", "semiarido")
+            return PlanetJson(
+                name = "nome-aleatorio",
+                climate = weathers,
+                terrain = terrain,
+                movieAppearances = 0,
+                cacheInDays = 0
+            )
+        }
+
+
+    val invalidPlanetJson: PlanetJson get() = PlanetJson(id = null, name = "", emptyList(), emptyList(), movieAppearances = 0, cacheInDays = 0)
 }

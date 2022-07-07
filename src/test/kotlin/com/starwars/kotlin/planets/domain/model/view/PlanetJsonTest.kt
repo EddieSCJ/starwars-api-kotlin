@@ -18,7 +18,7 @@ internal class PlanetJsonTest {
             planetJson.climate,
             planetJson.terrain,
             planetJson.movieAppearances,
-            planetJson.cacheInDays
+            planetJson.cacheInDays.toLong()
         )
         Assertions.assertTrue(Objects.deepEquals(expectedPlanet, planetJson.toDomain()))
     }
@@ -32,7 +32,7 @@ internal class PlanetJsonTest {
             planet.climate,
             planet.terrain,
             planet.movieAppearances,
-            planet.cacheInDays
+            planet.cacheInDays.toInt()
         )
         Assertions.assertTrue(Objects.deepEquals(expectedPlanetJson, PlanetJson.fromDomain(planet)))
     }

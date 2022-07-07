@@ -3,12 +3,12 @@ package com.starwars.kotlin.planets.domain.model.view
 import com.starwars.kotlin.planets.domain.model.Planet
 
 data class PlanetJson(
-    var id: String?,
+    var id: String? = null,
     val name: String,
     val climate: List<String>,
     val terrain: List<String>,
     val movieAppearances: Int,
-    val cacheInDays: Long,
+    val cacheInDays: Int,
 )
 {
     fun toDomain(): Planet = Planet(id, name, climate, terrain, movieAppearances, 0)
@@ -21,7 +21,7 @@ data class PlanetJson(
                 planet.climate,
                 planet.terrain,
                 planet.movieAppearances,
-                planet.cacheInDays,
+                planet.cacheInDays.toInt(),
             )
         }
     }

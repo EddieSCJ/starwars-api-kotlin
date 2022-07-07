@@ -2,6 +2,7 @@ package com.starwars.kotlin.planets.app.storage.mongo
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.starwars.kotlin.common.exceptions.error.InternalServerError
+import com.starwars.kotlin.common.exceptions.error.NotFoundError
 import com.starwars.kotlin.planets.app.storage.mongo.model.Constants.FIELD_ID
 import com.starwars.kotlin.planets.app.storage.mongo.model.Constants.FIELD_NAME
 import com.starwars.kotlin.planets.app.storage.mongo.model.MongoPlanet
@@ -82,7 +83,7 @@ class MongoStorage constructor(
         return findById(id)
             .switchIfEmpty(
                 Mono.error(
-                    InternalServerError(
+                    NotFoundError(
                         format(
                             "Planeta não encontrado para ser deletado. id: {0}.",
                             id

@@ -1,5 +1,7 @@
 package com.starwars.kotlin.planets.app.handler
 
+import com.starwars.kotlin.StarWarsApiKotlinApplication
+import com.starwars.kotlin.infra.external.config.database.MongoConfiguration
 import com.starwars.kotlin.planets.app.storage.mongo.IPlanetMongoRepository
 import com.starwars.kotlin.planets.app.storage.mongo.model.MongoPlanet
 import com.starwars.kotlin.planets.domain.model.view.PlanetJson
@@ -7,11 +9,16 @@ import commons.base.AbstractIntegrationTest
 import commons.utils.DomainUtils.invalidPlanetJson
 import commons.utils.DomainUtils.randomMongoPlanet
 import commons.utils.DomainUtils.randomPlanetJson
+import commons.utils.DomainUtils.randomPlanetJsonWithoutId
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -297,8 +304,7 @@ class PlanetHandlerTest @Autowired constructor(
     internal inner class Save {
         @Test
         fun `Deve salvar um planeta na base de dados com sucesso`() {
-            val planetJson = randomPlanetJson
-            planetJson.id = null
+            val planetJson = randomPlanetJsonWithoutId
 
             webTestClient
                 .post()
@@ -326,10 +332,9 @@ class PlanetHandlerTest @Autowired constructor(
                 .exchange()
                 .expectStatus().isBadRequest
                 .expectBody()
-                .jsonPath("$.errors[0]").isEqualTo("Campo name nao pode ser nulo.")
-                .jsonPath("$.errors[1]").isEqualTo("Campo climate nao pode ser nulo.")
-                .jsonPath("$.errors[2]").isEqualTo("Campo terrain nao pode ser nulo.")
-                .jsonPath("$.errors[3]").isEqualTo("Campo movieAppearances nao pode ser nulo.")
+                .jsonPath("$.errors[0]").isEqualTo("Campo name nao pode ser vazio.")
+                .jsonPath("$.errors[1]").isEqualTo("Campo climate nao pode ser vazio.")
+                .jsonPath("$.errors[2]").isEqualTo("Campo terrain nao pode ser vazio.")
         }
 
     }
@@ -358,7 +363,7 @@ class PlanetHandlerTest @Autowired constructor(
                 .exchange()
                 .expectStatus().isNotFound
                 .expectBody()
-                .jsonPath("$.message").isEqualTo("Nenhum planeta foi encontrado para ser deletado pelo id: $id.")
+                .jsonPath("$.message").isEqualTo("Planeta não encontrado para ser deletado. id: $id.")
         }
     }
 }

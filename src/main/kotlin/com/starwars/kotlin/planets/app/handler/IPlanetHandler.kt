@@ -60,7 +60,7 @@ interface IPlanetHandler {
         responseCode = "201",
         content = [Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = Schema(implementation = PlanetJson::class))]
     )
-    fun post(planet: PlanetJson, request: ServerHttpRequest): Mono<PlanetJson>
+    fun post(@RequestBody planet: PlanetJson, request: ServerHttpRequest): Mono<PlanetJson>
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

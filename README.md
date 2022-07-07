@@ -9,7 +9,7 @@
     <p> Kotlin</p>
     <a href="https://app.snyk.io/org/eddiescj/projects" target="_blank">:wolf: Snyk </a>
     <a href="https://sonarcloud.io/summary/new_code?id=EddieSCJ_starwars-api-kotlin" target="_blank">:detective: SonarCloud </a>
-    <a href="https://app.codecov.io/gh/EddieSCJ/starwars-api-java/" target="_blank">:open_umbrella: CodeCov </a>
+    <a href="https://app.codecov.io/gh/EddieSCJ/starwars-api-kotlin/" target="_blank">:open_umbrella: CodeCov </a>
 </div>
 
 #### <p align="center"> Requirements </p>

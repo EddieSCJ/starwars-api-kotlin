@@ -71,6 +71,16 @@ services:
       - kafka
     build: ./init-kafka
 
+############# WIREMOCK ################
+  wiremock:
+    image: wiremock/wiremock
+    volumes:
+      - ./wiremock:/home/wiremock
+    ports:
+      - "9999:8080"
+    command:
+      - --verbose
+
 volumes:
   mongo-data:
     driver: local

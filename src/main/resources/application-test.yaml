@@ -13,3 +13,8 @@ spring:
 kafka:
   bootstrap:
     address: 'http://localhost:9092'
+
+clients:
+  starwars:
+    name: starwars
+    url: http://localhost:9999/starwars-api

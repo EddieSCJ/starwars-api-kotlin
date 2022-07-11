@@ -180,14 +180,8 @@ class PlanetHandlerTest @Autowired constructor(
         @Test
         fun `Deve buscar com sucesso um planeta na API de star wars quando o cache for invalido`() {
             val mongoPlanet: MongoPlanet = randomMongoPlanet
-            val newMongoPlanet = MongoPlanet(
-                id = mongoPlanet.id,
-                name = "Tatooine",
-                climate = mongoPlanet.climate,
-                terrain = mongoPlanet.terrain,
-                movieAppearances = mongoPlanet.movieAppearances,
-                creationDate = LocalDateTime.now().minus(2, ChronoUnit.DAYS)
-            )
+            val newMongoPlanet = mongoPlanet.copy(name = "Tatooine", creationDate = LocalDateTime.now().minus(2, ChronoUnit.DAYS))
+
             saveMongoPlanet(newMongoPlanet)
             webTestClient
                 .get()

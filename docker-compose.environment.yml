@@ -13,7 +13,7 @@ services:
       - DATA_DIR=/data/localstack
       - HOST_TMP_FOLDER=/tmp/localstack
       - DOCKER_HOST=unix:///var/run/docker.sock
-      - SERVICES=sqs,sns
+      - SERVICES=s3,sqs,sns
       - AWS_ACCESS_KEY_ID=dummy
       - AWS_SECRET_ACCESS_KEY=dummy
       - HOSTNAME_EXTERNAL=localstack

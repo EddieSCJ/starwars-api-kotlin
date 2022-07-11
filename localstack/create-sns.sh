@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run the app using local stack SQS and S3
+# Run the app using local stack SNS
 
 export SNS_ENDPOINT=http://localhost:4566
 export SNS_REGION=us-east-1

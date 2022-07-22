@@ -56,7 +56,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive:2.7.0")
 
     /** Docs **/
-    implementation("org.springdoc:springdoc-openapi-ui:1.6.9")
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+
+    /** Utils **/
+    implementation("org.apache.commons:commons-lang3:3.0")
 
     /** Testing **/
     testImplementation("com.appmattus.fixture:fixture:1.2.0")

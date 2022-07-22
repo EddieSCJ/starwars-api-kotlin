@@ -1,24 +1,17 @@
 package com.starwars.kotlin.planets.app.handler
 
 import com.starwars.kotlin.infra.log.LoggerUtils
-import com.starwars.kotlin.planets.domain.model.Planet
 import com.starwars.kotlin.planets.domain.model.view.PlanetJson
 import com.starwars.kotlin.planets.domain.operations.PlanetOperations
-import io.swagger.v3.oas.annotations.media.Content
-import io.swagger.v3.oas.annotations.media.Schema
-import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.http.server.reactive.ServerHttpRequest
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @RestController
-@Tag(name = "Planets")
 @RequestMapping(value = [Constants.PLANETS_ENDPOINT])
 class PlanetHandler constructor(private val planetService: PlanetOperations) : IPlanetHandler {
     val log: Logger = LoggerFactory.getLogger(this::class.java)
@@ -38,7 +31,13 @@ class PlanetHandler constructor(private val planetService: PlanetOperations) : I
 
         return planetService.findById(id, cacheInDays)
             .flatMap { tempPlanet -> Mono.just(PlanetJson.fromDomain(tempPlanet)) }
-            .doOnSuccess { log.info("Busca de planeta por id concluida com sucesso. id: {}. cacheInDays: {}.", id, cacheInDays) }
+            .doOnSuccess {
+                log.info(
+                    "Busca de planeta por id concluida com sucesso. id: {}. cacheInDays: {}.",
+                    id,
+                    cacheInDays
+                )
+            }
     }
 
     override fun getByName(name: String, cacheInDays: Long, request: ServerHttpRequest): Mono<PlanetJson> {
@@ -47,7 +46,13 @@ class PlanetHandler constructor(private val planetService: PlanetOperations) : I
 
         return planetService.findByName(name, cacheInDays)
             .flatMap { tempPlanet -> Mono.just(PlanetJson.fromDomain(tempPlanet)) }
-            .doOnSuccess { log.info("Busca de planeta pelo nome concluida com sucesso. name: {}. cacheInDays: {}.", name, cacheInDays) }
+            .doOnSuccess {
+                log.info(
+                    "Busca de planeta pelo nome concluida com sucesso. name: {}. cacheInDays: {}.",
+                    name,
+                    cacheInDays
+                )
+            }
     }
 
 

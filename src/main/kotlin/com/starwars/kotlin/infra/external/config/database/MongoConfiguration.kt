@@ -15,7 +15,6 @@ import org.springframework.data.mongodb.SpringDataMongoDB
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate
 import java.text.MessageFormat
 
-
 @Configuration
 data class MongoConfiguration(
     @Value("\${spring.data.mongodb.username:}")

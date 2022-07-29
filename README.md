@@ -1,5 +1,8 @@
 # <p align="center"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-plain-wordmark.svg" width=100 /> <br> :space_invader: Star Wars API :space_invader:</p>
 
+# Documentation 
+For documentation purposes, just open the following link: [Star Wars API Kotlin Documentation](https://eddiescj.github.io/starwars-api-kotlin/)
+
 #### <p align="center"> Project Tooling </p>
 
 <div align="center"> 

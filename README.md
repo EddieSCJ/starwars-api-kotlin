@@ -26,7 +26,11 @@
 <img width="1856" alt="Star Wars API" src="https://user-images.githubusercontent.com/47372251/172541967-601f0421-dc29-4fdd-85c1-4df6d356385c.png">
 
 #### <p align="center"> Workflow / Architecture </p>
-[Original Figma](https://www.figma.com/file/MZIkN6HRJLCbxZXgIxJ08B/Star-Wars-API?node-id=0%3A1)
+<p align="center">
+    <a href="https://www.figma.com/file/MZIkN6HRJLCbxZXgIxJ08B/Star-Wars-API?node-id=0%3A1" target="_blank"> Original Figma Design </a>
+</p>
+
+<img width="1856" alt="Star Wars API" src="docs/img/Star Wars API.jpg">
 
 #### <p align="center"> Description </p>
 

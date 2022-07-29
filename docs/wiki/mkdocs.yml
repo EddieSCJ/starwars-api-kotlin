@@ -1,0 +1,45 @@
+site_name: WIKI - Star Wars API
+nav:
+  - Home: index.md
+  - API Design:
+      - Ecosystem: pages/api-design/ecosystem.md
+      - Planets: pages/api-design/planets.md
+  - Project:
+      - Best Practices: pages/project/best_practices.md
+      - Setup:
+          - Running: pages/project/setup/running.md
+          - Testing: pages/project/setup/testing.md
+
+theme:
+  name: material
+  features:
+    - navigation.indexes
+  palette:
+      # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg

@@ -1,8 +1,5 @@
 # <p align="center"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-plain-wordmark.svg" width=100 /> <br> :space_invader: Star Wars API :space_invader:</p>
 
-#### <p align="center">  This project is cloned from [Github Star Wars API Java](https://github.com/EddieSCJ/starwars-api-java) </p>
-<p align="center"> I am keep fowarding with the previous pet project, but now using kotlin as a better language which also use the JVM platform. </p>
-
 #### <p align="center"> Project Tooling </p>
 
 <div align="center"> 
@@ -20,18 +17,6 @@
     <a href="https://docs.docker.com/get-docker/" target="_blank"> <img width="13" src="https://raw.githubusercontent.com/davzoku/emoji.ico/master/devicon/mongodb-original.ico"> MongoDB </a>
 </div>
 
-
-#### <p align="center"> Ecosystem </p>
-
-<img width="1856" alt="Star Wars API" src="https://user-images.githubusercontent.com/47372251/172541967-601f0421-dc29-4fdd-85c1-4df6d356385c.png">
-
-#### <p align="center"> Workflow / Architecture </p>
-<p align="center">
-    <a href="https://www.figma.com/file/MZIkN6HRJLCbxZXgIxJ08B/Star-Wars-API?node-id=0%3A1" target="_blank"> Original Figma Design </a>
-</p>
-
-<img width="1856" alt="Star Wars API" src="docs/img/Star Wars API.jpg">
-
 #### <p align="center"> Description </p>
 
 This api is a simple wrapper for the [Star Wars API](https://swapi.dev/) where you can get information about the characters,
@@ -41,31 +26,6 @@ need.
 The api also is documented with [OpenAPI Swagger](https://swagger.io/specification/), so if you have any doubt, just open in your browser the follow url: `http://domain-you-are-using/api/v0/swagger-ui/index.html`
 
 Please, read the content below to know how to use this api and if is there any doubt, please, contact me.
-
-#### <p align="center"> PR Advices </p>
-
-You'll see that once you open a PR some checks will be made, they are all essential to be passed before you merge your branch, so, make sure they are all passing.
-
-One exception is snyk, which sometimes have some problems that can't be solved now, in this case you can just bypass.
-
-#### <p align="center"> Using Cloud Tools </p>
-
-- Snyk
-  - Just click in the link above and search for starwars-api-java, so you will be able to see the security problems.
-- SonarCloud
-  - Clicking the link above you will be redirected to the quality analysis of this project.
-- CodeCov
-  - You can click the link above and see the code coverage details by commit or any type of data or just see the summary
-    in your PR.
-
-#### <p align="center"> Making Requests </p>
-
-Using Authorization to get planets
-
-```bash
-curl -o result.json --location --request GET 'http://localhost:8080/api/v0/planets' \
---header 'Content-Type: application/json' | json_pp
-```
 
 #### <p align="center"> Running </p>
 

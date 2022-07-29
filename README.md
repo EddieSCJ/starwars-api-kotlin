@@ -1,7 +1,5 @@
 # <p align="center"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-plain-wordmark.svg" width=100 /> <br> :space_invader: Star Wars API :space_invader:</p>
 
-# Documentation 
-For documentation purposes, just open the following link: [Star Wars API Kotlin Documentation](https://eddiescj.github.io/starwars-api-kotlin/)
 
 #### <p align="center"> Project Tooling </p>
 
@@ -19,6 +17,10 @@ For documentation purposes, just open the following link: [Star Wars API Kotlin 
     <a href="https://docs.docker.com/get-docker/" target="_blank"> :whale: Docker </a>
     <a href="https://docs.docker.com/get-docker/" target="_blank"> <img width="13" src="https://raw.githubusercontent.com/davzoku/emoji.ico/master/devicon/mongodb-original.ico"> MongoDB </a>
 </div>
+
+#### <p align="center"> Documentation </p> 
+For documentation purposes, just open the following link: [Star Wars API Kotlin Documentation](https://eddiescj.github.io/starwars-api-kotlin/)
+
 
 #### <p align="center"> Description </p>
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run the app using local stack SQS and S3
+# Run the app using local stack SQS
 
 export SQS_QUEUE_URL=http://localhost:4566/queue/planet-delete.fifo
 export SQS_ENDPOINT=http://localhost:4566

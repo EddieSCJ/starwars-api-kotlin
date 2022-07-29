@@ -19,7 +19,7 @@
 </div>
 
 #### <p align="center"> Documentation </p> 
-For documentation purposes, just open the following link: [Star Wars API Kotlin Documentation](https://eddiescj.github.io/starwars-api-kotlin/)
+For documentation purposes, just open the following link: [Star Wars API Kotlin Documentation](https://eddiescj.github.io/starwars-api-kotlin/){:target="_blank"}
 
 
 #### <p align="center"> Description </p>

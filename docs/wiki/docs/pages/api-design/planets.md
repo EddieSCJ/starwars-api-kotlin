@@ -4,7 +4,7 @@ The API design consists in the steps to being followed to use the Rest API, incl
 
 The flow to be followed is drawn in the diagram in the next section.
 
-# <p align="center"> Saving Requests </p>
+### <p align="center"> Saving Money/Requests Strategy </p>
 
 One of the main purposes of this API is to save requests to the SWAPI client using an own database, so, part of the flow is to know how much older the data can be since the last request, getting this info from the consumer of the API.
 

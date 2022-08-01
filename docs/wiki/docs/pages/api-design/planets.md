@@ -14,7 +14,7 @@ But if there is no planet requested in the last 365 days, example, the last save
 
 **Example 2:** Now imagine you want to know what is the number of movies a planet appeared, and for this, you need the most updated info, no space for errors or anything like this, so you can request a planet with 0 cache in days, knowing that, we will directly ask for the client to get the most recent info for you, but using a `cacheInDays` as 0, you will ever pay the $0.80 cents to request info directly from the client.
 
-# <p align="center"> Design </p>
+## <p align="center"> Design </p>
 
 <p align="center"> <a href="https://www.figma.com/file/MZIkN6HRJLCbxZXgIxJ08B/Star-Wars-API?node-id=0%3A1" target="_blank"> Original Figma Design </a></p>
 

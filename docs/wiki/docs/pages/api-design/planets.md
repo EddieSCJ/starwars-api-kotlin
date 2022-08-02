@@ -18,11 +18,6 @@ But if there is no planet requested in the last 365 days, example, the last save
 
 <p align="center"> <a href="https://www.figma.com/file/MZIkN6HRJLCbxZXgIxJ08B/Star-Wars-API?node-id=0%3A1" target="_blank"> Original Figma Design </a></p>
 
-### <p align="center"> Contracts </p>
-![Star Wars API Ecosystem](../../img/planets/constracts.jpg)
-
-
-### <p align="center"> Flow </p>
-![Star Wars API Ecosystem](../../img/planets/list.jpg)
+### <p align="center"> Contracts and Flow </p>
 
 <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FMZIkN6HRJLCbxZXgIxJ08B%2FStar-Wars-API%3Fnode-id%3D0%253A1" allowfullscreen></iframe>

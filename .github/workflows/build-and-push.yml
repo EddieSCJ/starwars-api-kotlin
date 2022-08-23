@@ -1,4 +1,4 @@
-name: Build and Push
+name: Build and Push Docker Image
 
 on:
   push:
@@ -25,4 +25,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: eddieforstudies/starwars-api-kotlin:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/starwars-api-kotlin:latest

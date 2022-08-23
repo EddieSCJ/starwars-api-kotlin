@@ -274,7 +274,7 @@ internal class PlanetServiceTest {
 
         @Test
         fun `Deve replicar excecao do metodo delete do repository`() {
-            doThrow(NotFoundError::class.java).`when`(planetRepository).deleteById(anyString()).subscribe()
+            doThrow(NotFoundError::class.java).`when`(planetRepository).deleteById(anyString())
             Assertions.assertThrows(NotFoundError::class.java) { planetService.deleteById(FAKE_ID).subscribe() }
             verify(planetRepository, times(1)).deleteById(anyString())
         }

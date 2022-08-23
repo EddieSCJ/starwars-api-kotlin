@@ -1,7 +1,9 @@
-FROM openjdk:18.0-jdk-slim-buster
+# First stage (build)
+FROM openjdk:18.0-jdk-slim-buster AS BUILD_IMAGE
 
-MAINTAINER Edcleidson Junior
-COPY build/libs/*.jar starwars.jar
+# Creating package where will be our application
+ENV APP_HOME=/root/dev/starwars
+WORKDIR $APP_HOME
 
-EXPOSE 8080
-CMD ["java","-jar","starwars.jar"]
+ADD /build/libs/starwars-0.0.1-SNAPSHOT.jar $APP_HOME/starwars.jar
+ENTRYPOINT ["java","-jar","starwars.jar"]

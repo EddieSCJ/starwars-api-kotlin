@@ -9,3 +9,22 @@ services:
       - 8080:8080
       - 443:443
       - 80:80
+    environment:
+      - MONGO_HOST=localhost
+      - MONGO_USER=admin
+      - MONGO_PASSWORD=password
+      - MONGO_PORT=27017
+      - MONGO_DB=starwars
+      - MONGO_CONTAINER_NAME=mongoservice
+      - AWS_SECRET_KEY=SECRET
+      - AWS_ACCESS_KEY=ACCESS
+      - AWS_REGION=us-east-1
+      - SNS_ENDPOINT=http://localhost:4566
+      - SQS_ENDPOINT=http://localhost:4566
+      - SQS_PLANET_DELETE_URL=http://localhost:4566/queue/planet-delete.fifo
+      - SWAPI_URL=https://swapi.dev/api
+      - ENV=ENV
+      - API_PORT=8080
+      - PROFILE=dev
+      - MONGO_AUTH_SOURCE=admin
+      - KAFKA_BOOTSTRAP_ADDRESS=localhost:9093

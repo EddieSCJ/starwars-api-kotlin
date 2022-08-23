@@ -1,4 +1,5 @@
 FROM bitnami/kafka:latest
+USER root
 
 COPY init-kafka.sh .
 

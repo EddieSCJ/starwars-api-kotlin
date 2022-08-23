@@ -3,7 +3,7 @@ version: "3.8"
 services:
   ############# AWS ################
   localstack:
-    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
+    hostname: "localstack"
     image: localstack/localstack
     ports:
       - "127.0.0.1:4510-4559:4510-4559" # external service port range
@@ -24,7 +24,8 @@ services:
 
   ############# MONGO ################
   mongodb:
-    image: mongo
+    image: mongo:4.4.16
+    hostname: "mongodb"
     ports:
       - 27017:27017
     environment:
@@ -32,10 +33,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
       - mongo-data:/tmp/mongodb
-  mongo-seed:
-    build: ./mongo-seed
-    depends_on:
-      - mongodb
+      - ./init-mongo:/docker-entrypoint-initdb.d
 
   ############# APACHE KAFKA ################
   zookeeper:
@@ -73,6 +71,7 @@ services:
 
 ############# WIREMOCK ################
   wiremock:
+    hostname: "wiremock"
     image: wiremock/wiremock
     volumes:
       - ./wiremock:/home/wiremock

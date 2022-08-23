@@ -24,7 +24,7 @@ FROM openjdk:18.0-jdk-slim-buster AS RUN_IMAGE
 WORKDIR /root/
 
 #Copying our jar from the first stage
-COPY --from=BUILD_IMAGE /root/dev/myapp/build/libs/*.jar .
+COPY --from=BUILD_IMAGE /root/dev/starwars/build/libs/*.jar .
 
 EXPOSE 8080
 CMD ["java","-jar","starwars*.jar"]

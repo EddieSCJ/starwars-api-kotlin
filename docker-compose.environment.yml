@@ -33,7 +33,10 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
       - mongo-data:/tmp/mongodb
-      - ./init-mongo:/docker-entrypoint-initdb.d
+  mongo-seed:
+    build: ./init-mongo
+    depends_on:
+      - mongodb
 
   ############# APACHE KAFKA ################
   zookeeper:

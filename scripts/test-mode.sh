@@ -3,14 +3,13 @@
 # Run compose to up environment
 chmod +x ./scripts/cache-docker/mount-environment.sh
 ./scripts/cache-docker/mount-environment.sh
-planet-delete.fifo
 
 export KAFKA_BOOTSTRAP_ADDRESS=http://localhost:9093
 export AWS_REGION=us-east-1
 export MONGO_AUTH_SOURCE=admin
 export MONGO_HOST=localhost
 export SQS_PLANET_DELETE_URL=http://localhost:4566/queue/planet-delete.fifo
-export SWAPI_URL=https://swapi.dev/api
+export SWAPI_URL=http://localhost:9999/starwars-api
 export MONGO_DB=starwars
 export SQS_ENDPOINT=http://localhost:4566
 export MONGO_USER=admin

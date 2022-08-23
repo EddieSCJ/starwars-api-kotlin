@@ -6,7 +6,7 @@ server:
 clients:
   starwars:
     name: starwars
-    url: https://swapi.dev/api/
+    url: ${SWAPI_URL}
 
 feign:
   client:

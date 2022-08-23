@@ -1,7 +1,3 @@
-#!/usr/bin/env bash
-
-cd /opt/bitnami/kafka/bin || exit
-
 echo "Listing bootstrap servers"
 kafka-topics.sh --bootstrap-server kafka:9092 --list
 

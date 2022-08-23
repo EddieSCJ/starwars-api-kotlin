@@ -1,4 +1,4 @@
-package com.starwars.kotlin.planets.client
+package com.starwars.kotlin.planets.domain.client
 
 import com.starwars.kotlin.planets.app.handler.Constants.PLANETS_ENDPOINT
 import com.starwars.kotlin.planets.domain.model.client.PlanetResponseJson

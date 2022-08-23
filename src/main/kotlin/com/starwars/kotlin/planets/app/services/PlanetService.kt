@@ -6,7 +6,7 @@ import com.starwars.kotlin.common.exceptions.error.NotFoundError
 import com.starwars.kotlin.planets.app.storage.mongo.IPlanetMongoRepository
 import com.starwars.kotlin.planets.app.storage.mongo.model.MongoPlanet
 import com.starwars.kotlin.planets.app.validations.PlanetValidator
-import com.starwars.kotlin.planets.client.StarWarsApiClient
+import com.starwars.kotlin.planets.domain.client.StarWarsApiClient
 import com.starwars.kotlin.planets.domain.model.Planet
 import com.starwars.kotlin.planets.domain.operations.PlanetOperations
 import com.starwars.kotlin.planets.domain.storage.PlanetStorage
@@ -46,7 +46,7 @@ class PlanetService constructor(
                 if (it.cacheInDays > cacheInDays) {
                     findFromStarWarsClientBy(it.name, it.id)
                         .switchIfEmpty(Mono.error(NotFoundError(format("Planeta não encontrado com o id: {0}", id))))
-                        .doOnSuccess { planet -> planetRepository.save(Mono.just(planet)) }
+                        .doOnSuccess { planet -> planetRepository.save(Mono.just(planet)).subscribe() }
                 } else Mono.just(it)
             }
             .map { it.t2 }
@@ -67,7 +67,7 @@ class PlanetService constructor(
             .switchIfEmpty {
                 findFromStarWarsClientBy(name, null)
                     .switchIfEmpty(Mono.error(NotFoundError(format("Planeta não encontrado com o nome: {0}", name))))
-                    .doOnSuccess { planetRepository.save(Mono.just(it)) }
+                    .doOnSuccess { planetRepository.save(Mono.just(it)).subscribe() }
             }
     }
 

@@ -5,7 +5,7 @@ import com.starwars.kotlin.common.exceptions.error.NotFoundError
 import com.starwars.kotlin.planets.app.storage.mongo.IPlanetMongoRepository
 import com.starwars.kotlin.planets.app.storage.mongo.model.MongoPlanet
 import com.starwars.kotlin.planets.app.validations.PlanetValidator
-import com.starwars.kotlin.planets.client.StarWarsApiClient
+import com.starwars.kotlin.planets.domain.client.StarWarsApiClient
 import com.starwars.kotlin.planets.domain.model.Planet
 import com.starwars.kotlin.planets.domain.model.client.PlanetResponseJson
 import com.starwars.kotlin.planets.domain.storage.PlanetStorage
@@ -29,7 +29,6 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doThrow
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.*
-import reactor.core.Disposable
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
@@ -275,7 +274,7 @@ internal class PlanetServiceTest {
 
         @Test
         fun `Deve replicar excecao do metodo delete do repository`() {
-            doThrow(NotFoundError::class.java).`when`(planetRepository).deleteById(anyString())
+            doThrow(NotFoundError::class.java).`when`(planetRepository).deleteById(anyString()).subscribe()
             Assertions.assertThrows(NotFoundError::class.java) { planetService.deleteById(FAKE_ID).subscribe() }
             verify(planetRepository, times(1)).deleteById(anyString())
         }

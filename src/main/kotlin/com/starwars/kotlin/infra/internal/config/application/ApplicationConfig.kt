@@ -1,7 +1,7 @@
 package com.starwars.kotlin.infra.internal.config.application
 
 import com.starwars.kotlin.infra.helpers.MessageSourceHelper
-import com.starwars.kotlin.planets.client.StarWarsApiClient
+import com.starwars.kotlin.planets.domain.client.StarWarsApiClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

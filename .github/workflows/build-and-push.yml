@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Deploy Flow
 
 on:
   push:
@@ -25,4 +25,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/starwars-api-kotlin:latest
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/starwars-api-kotlin
+          tags: ${{ github.sha }}, latest

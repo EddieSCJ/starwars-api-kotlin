@@ -1,7 +1,9 @@
 name: Deploy Dev Flow
 
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      env: dev
 
 jobs:
    build_and_push:
@@ -24,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/starwars-api-kotlin-dev:${{ github.sha }}, ${{ secrets.DOCKERHUB_USERNAME }}/starwars-api-kotlin-dev:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/starwars-api-kotlin-${{ github.event.inputs.env }}:${{ github.sha }}, ${{ secrets.DOCKERHUB_USERNAME }}/starwars-api-kotlin-${{ github.event.inputs.env }}:latest

@@ -1,9 +1,9 @@
 name: Deploy Flow
 
 on:
-  push:
+  workflow_dispatch:
     branches:
-      - 'main'
+      - main
 
 jobs:
    build_and_push:

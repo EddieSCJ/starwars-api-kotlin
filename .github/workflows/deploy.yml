@@ -1,9 +1,12 @@
-name: Deploy Dev Flow
+name: Deploy Flow
 
 on:
   workflow_dispatch:
     inputs:
-      env: dev
+      env:
+        description: Environment to Deploy
+        default: dev
+        required: true
 
 jobs:
    build_and_push:

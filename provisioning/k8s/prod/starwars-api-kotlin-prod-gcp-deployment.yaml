@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starwars-api-kotlin
+  labels:
+    app: starwars-api-kotlin
+spec:
+  selector:
+    matchLabels:
+      app: starwars-api-kotlin
+  template:
+    metadata:
+        labels:
+            app: starwars-api-kotlin
+    spec:
+      containers:
+        - name: starwars-api-kotlin
+          image: to-be-replaced
+          ports:
+          - containerPort: 8080
+          env:
+          - name: MONGO_HOST
+            value: localhost
+          - name: MONGO_USER
+            value: admin
+          - name: MONGO_PASSWORD
+            value: password
+          - name: MONGO_PORT
+            value: "27017"
+          - name: MONGO_DB
+            value: starwars
+          - name: MONGO_CONTAINER_NAME
+            value: mongoservice
+          - name: AWS_SECRET_KEY
+            value: SECRET
+          - name: AWS_ACCESS_KEY
+            value: ACCESS
+          - name: AWS_REGION
+            value: us-east-1
+          - name: SNS_ENDPOINT
+            value: http://localhost:4566
+          - name: SQS_ENDPOINT
+            value: http://localhost:4566
+          - name: SQS_PLANET_DELETE_URL
+            value: http://localhost:4566/queue/planet-delete.fifo
+          - name: SWAPI_URL
+            value: https://swapi.dev/api
+          - name: ENV
+            value: ENV
+          - name: API_PORT
+            value: 8080
+          - name: PROFILE
+            value: dev
+          - name: MONGO_AUTH_SOURCE
+            value: admin
+          - name: KAFKA_BOOTSTRAP_ADDRESS
+            value: localhost:9093
+          - name: KAFKA_TOPIC_NAME
+            value: starwars-api-kotlin
+          - name: KAFKA_GROUP_ID
+            value: starwars-api-kotlin
+          - name: KAFKA_CLIENT_ID
+            value: qaa

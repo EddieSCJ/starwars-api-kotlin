@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starwars-api-kotlin-dev
+  labels:
+    app: starwars-api-kotlin-dev
+spec:
+  selector:
+    matchLabels:
+      app: starwars-api-kotlin-dev
+  template:
+    metadata:
+        labels:
+            app: starwars-api-kotlin-dev
+    spec:
+      containers:
+        - name: starwars-api-kotlin-dev
+          image: ${DOCKER_USERNAME}/${DOCKER_REPOSITORY}:${DOCKER_TAG}
+          ports:
+          - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: starwars-api-kotlin-dev-config

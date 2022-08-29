@@ -26,21 +26,21 @@ dependencies {
     /** Kotlin **/
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.2")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.6")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.7")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
 
     /** Spring **/
-    developmentOnly("org.springframework.boot:spring-boot-devtools:2.7.0")
-    implementation("org.springframework.boot:spring-boot-starter-webflux:2.7.0")
-    implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.0")
+    developmentOnly("org.springframework.boot:spring-boot-devtools:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.3")
 
     /** Spring Cloud **/
     implementation("org.springframework.cloud:spring-cloud-context:3.1.3")
 
     /** Messaging **/
-    implementation("org.springframework.kafka:spring-kafka:2.8.6")
+    implementation("org.springframework.kafka:spring-kafka:2.9.0")
     implementation("org.springframework.cloud:spring-cloud-starter-aws-messaging:2.2.6.RELEASE")
 
 
@@ -48,7 +48,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt:0.9.1")
 
     /** Reactive Feign **/
-    implementation("com.playtika.reactivefeign:feign-reactor-core:3.2.1")
+    implementation("com.playtika.reactivefeign:feign-reactor-core:3.2.3")
     implementation("com.playtika.reactivefeign:feign-reactor-spring-configuration:3.2.1")
     implementation("com.playtika.reactivefeign:feign-reactor-webclient:3.2.1")
 
@@ -59,14 +59,14 @@ dependencies {
     implementation("io.springfox:springfox-boot-starter:3.0.0")
 
     /** Utils **/
-    implementation("org.apache.commons:commons-lang3:3.0")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
 
     /** Testing **/
     testImplementation("com.appmattus.fixture:fixture:1.2.0")
-    testImplementation("io.projectreactor:reactor-test:3.4.18")
-    testImplementation ("org.junit.jupiter:junit-jupiter:5.8.2")
+    testImplementation("io.projectreactor:reactor-test:3.4.22")
+    testImplementation ("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
-    testImplementation ("org.springframework.boot:spring-boot-starter-test:2.7.0")
+    testImplementation ("org.springframework.boot:spring-boot-starter-test:2.7.3")
 }
 
 // ================================ Tests ================================

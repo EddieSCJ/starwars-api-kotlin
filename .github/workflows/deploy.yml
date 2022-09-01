@@ -36,54 +36,54 @@ jobs:
           push: true
           tags: $DOCKER_USERNAME/starwars-api-kotlin-$ENV:$SHA, $DOCKER_USERNAME/starwars-api-kotlin-$ENV:latest
 
-  kunertenes:
-    name: Kubernetes Config
-    runs-on: ubuntu-latest
-    needs: build_and_push
-    environment: ${{ github.event.inputs.env }}
-    env:
-      ENV: ${{ github.event.inputs.env }}
-      SHA: ${{ github.sha }}
-
-    steps:
-      - name: Update and apply kubernetes configuration files
-      - uses: swdotcom/update-and-apply-kubernetes-configs@v1
-        with:
-          k8-config-file-paths: provisioning/k8s/$ENV/config-$ENV.yaml provisioning/k8s/starwars-api-kotlin-$ENV-gcp-deployment.yaml
-          replacement-method: list
-          env-replacement-list: |
-            DOCKER_USERNAME
-            DOCKER_REPOSITORY
-            DOCKER_TAG
-            MONGO_HOST
-            MONGO_USER
-            MONGO_PASSWORD
-            MONGO_PORT
-            MONGO_DB
-            MONGO_AUTH_SOURCE
-            AWS_SECRET_KEY
-            AWS_ACCESS_KEY
-            AWS_REGION
-            SNS_ENDPOINT
-            SQS_ENDPOINT
-            SQS_PLANET_DELETE_URL
-            SWAPI_URL
-            KAFKA_BOOTSTRAP_ADDRESS
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKER_REPOSITORY: starwars-api-kotlin-$ENV
-          DOCKER_TAG: $SHA
-          MONGO_HOST: ${{ secrets.MONGO_HOST }}
-          MONGO_USER: ${{ secrets.MONGO_USER }}
-          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-          MONGO_PORT: ${{ secrets.MONGO_PORT }}
-          MONGO_DB: ${{ secrets.MONGO_DB }}
-          MONGO_AUTH_SOURCE: ${{ secrets.MONGO_AUTH_SOURCE }}
-          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          SNS_ENDPOINT: ${{ secrets.SNS_ENDPOINT }}
-          SQS_ENDPOINT: ${{ secrets.SQS_ENDPOINT }}
-          SQS_PLANET_DELETE_URL: ${{ secrets.SQS_PLANET_DELETE_URL }}
-          SWAPI_URL: ${{ secrets.SWAPI_URL }}
-          KAFKA_BOOTSTRAP_ADDRESS: ${{ secrets.KAFKA_BOOTSTRAP_ADDRESS }}
+#  kunertenes:
+#    name: Kubernetes Config
+#    runs-on: ubuntu-latest
+#    needs: build_and_push
+#    environment: ${{ github.event.inputs.env }}
+#    env:
+#      ENV: ${{ github.event.inputs.env }}
+#      SHA: ${{ github.sha }}
+#
+#    steps:
+#      - name: Update and apply kubernetes configuration files
+#      - uses: swdotcom/update-and-apply-kubernetes-configs@v1
+#        with:
+#          k8-config-file-paths: provisioning/k8s/$ENV/config-$ENV.yaml provisioning/k8s/starwars-api-kotlin-$ENV-gcp-deployment.yaml
+#          replacement-method: list
+#          env-replacement-list: |
+#            DOCKER_USERNAME
+#            DOCKER_REPOSITORY
+#            DOCKER_TAG
+#            MONGO_HOST
+#            MONGO_USER
+#            MONGO_PASSWORD
+#            MONGO_PORT
+#            MONGO_DB
+#            MONGO_AUTH_SOURCE
+#            AWS_SECRET_KEY
+#            AWS_ACCESS_KEY
+#            AWS_REGION
+#            SNS_ENDPOINT
+#            SQS_ENDPOINT
+#            SQS_PLANET_DELETE_URL
+#            SWAPI_URL
+#            KAFKA_BOOTSTRAP_ADDRESS
+#        env:
+#          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+#          DOCKER_REPOSITORY: starwars-api-kotlin-$ENV
+#          DOCKER_TAG: $SHA
+#          MONGO_HOST: ${{ secrets.MONGO_HOST }}
+#          MONGO_USER: ${{ secrets.MONGO_USER }}
+#          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+#          MONGO_PORT: ${{ secrets.MONGO_PORT }}
+#          MONGO_DB: ${{ secrets.MONGO_DB }}
+#          MONGO_AUTH_SOURCE: ${{ secrets.MONGO_AUTH_SOURCE }}
+#          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+#          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+#          AWS_REGION: ${{ secrets.AWS_REGION }}
+#          SNS_ENDPOINT: ${{ secrets.SNS_ENDPOINT }}
+#          SQS_ENDPOINT: ${{ secrets.SQS_ENDPOINT }}
+#          SQS_PLANET_DELETE_URL: ${{ secrets.SQS_PLANET_DELETE_URL }}
+#          SWAPI_URL: ${{ secrets.SWAPI_URL }}
+#          KAFKA_BOOTSTRAP_ADDRESS: ${{ secrets.KAFKA_BOOTSTRAP_ADDRESS }}

@@ -13,7 +13,6 @@ export SWAPI_URL=http://localhost:9999/starwars-api
 export MONGO_DB=starwars
 export SQS_ENDPOINT=http://localhost:4566
 export MONGO_USER=admin
-export ENV=ENV
 export MONGO_CONTAINER_NAME=mongoservice
 export PROFILE=test
 export SNS_ENDPOINT=http://localhost:4566

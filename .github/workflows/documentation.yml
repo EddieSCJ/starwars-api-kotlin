@@ -1,4 +1,4 @@
-name: Documentation
+name: Documentation Flow
 on:
   push:
     branches:
@@ -6,6 +6,7 @@ on:
       - main
 jobs:
   deploy:
+    name: Deploy Documentation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

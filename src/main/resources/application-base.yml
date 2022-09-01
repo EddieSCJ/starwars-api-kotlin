@@ -15,10 +15,6 @@ feign:
         connectTimeout: 1000
         readTimeout: 10000
 
-security:
-  authorization:
-    secret: ${AUTHORIZATION_SECRET}
-
 spring:
   autoconfigure:
     exclude:

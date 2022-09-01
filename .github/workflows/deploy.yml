@@ -10,10 +10,10 @@ on:
 
 jobs:
   build_and_push:
-    env:
-      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      ENV: ${{ github.event.inputs.env }}
-      SHA: ${{ github.sha }}
+#    env:
+#      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#      ENV: ${{ github.event.inputs.env }}
+#      SHA: ${{ github.sha }}
 
     name: Push to Dockerhub
     runs-on: ubuntu-latest

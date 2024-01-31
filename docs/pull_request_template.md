@@ -10,6 +10,10 @@ Please include a summary of the problem origin.
 
 Please include the description of your solution
 
+# Video Evidences of Working
+
+Include a video testing manually the api
+
 ## Breaking Changes
 
 If there is any breaking changes, please, consider creating a new version to be published, once we have consumers that will be affected
